@@ -21,6 +21,9 @@ public class BankManagingSys{
         final String EXIT = "Exit";
 
         String screen = DASHBOARD;
+        int[] accountId = new int[0];
+        double[] accountBalance = new double[0];
+        String[] accountName = new String[0];
 
         do {
             final String APP_TITLE = String.format("%s%s%s",
@@ -39,10 +42,6 @@ public class BankManagingSys{
                     System.out.println("\t[6]. Delete Account");
                     System.out.println("\t[7]. Exit");
 
-
-
-
-
                     System.out.print("\tEnter an option to continue: ");
                     int option = scanner.nextInt();
                     scanner.nextLine(); 
@@ -60,6 +59,9 @@ public class BankManagingSys{
 
                     break;
                 case CREATE_NEW_ACCOUNT:
+                    String id;
+                    String name;
+                    boolean valid;
                     break;
                 case DEPOSITE:
                     break;
