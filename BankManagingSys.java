@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class BankManagingSys{
@@ -59,9 +60,88 @@ public class BankManagingSys{
 
                     break;
                 case CREATE_NEW_ACCOUNT:
-                    String id;
+                    int id;
                     String name;
+                    double deposit;
                     boolean valid;
+
+                    Random iRandom = new Random();
+                    id = iRandom.nextInt(99999);
+                    System.out.printf("ID: SDB-%05d\n",id);
+
+                    
+
+                    //Name Validation
+                    do {
+                        valid = true;
+                        System.out.print("Name: ");
+                        name = scanner.nextLine();
+
+                        if (name.isBlank()){
+                            System.out.printf(ERROR_MSG, "Name can't be empty");
+                            valid = false;
+                        }else{
+                            for (int i = 0; i < name.length(); i++) {
+                                if (!(Character.isLetter(name.charAt(i)) ||
+                                    Character.isSpaceChar(name.charAt(i)))) {
+                                    System.out.printf("%sInvalid Name%s\n", COLOR_RED_BOLD, RESET);
+                                    valid = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if(!valid){
+                            System.out.print("Do you want to try again?(Y/n)");
+                            if (scanner.nextLine().strip().toUpperCase().equals("Y")) continue;
+                            break;
+                        }
+                        
+                    } while (!valid);
+
+                    //Intial Deposit validation
+                    do {
+                        valid = true;
+                        System.out.print("Initial Deposit: ");
+                        deposit = scanner.nextDouble();
+                        scanner.nextLine();
+
+                        if(deposit < 5000){
+                            System.out.printf(ERROR_MSG,"Insuffient amount.");
+                            valid = false;
+                            continue;
+                        }
+                        if(!valid){
+                            System.out.print("Do you want to try again?(Y/n)");
+                            if (scanner.nextLine().strip().toUpperCase().equals("Y")) continue;
+                            break;
+                        }
+
+                    } while (!valid);
+
+                    int[] newAccoutIds = new int[accountId.length + 1];
+                    String[] newAccountNames = new String[accountName.length + 1];
+                    double[] newAccountBalance = new double[accountBalance.length+1];
+
+                    for (int i = 0; i < accountId.length; i++) {
+                        newAccountBalance[i] = accountBalance[i];
+                        newAccountNames[i] = accountName[i];
+                        newAccoutIds[i] = accountId[i];
+
+                    }
+                    newAccountBalance[newAccountBalance.length - 1] = deposit;
+                    newAccountNames[newAccountNames.length - 1] = name;
+                    newAccoutIds[newAccoutIds.length -1] = id;
+                    
+                    accountBalance = newAccountBalance;
+                    accountId = newAccoutIds;
+                    accountName = newAccountNames;
+
+                    System.out.println();
+                    System.out.printf(SUCCESS_MSG, String.format("%s:%s has been created successfully", id, name));
+                    System.out.print("\tDo you want to add another (Y/n)? ");
+                    if (scanner.nextLine().strip().toUpperCase().equals("Y")) continue;
+                    screen = DASHBOARD;
+                    
                     break;
                 case DEPOSITE:
                     break;
