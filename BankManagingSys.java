@@ -1,4 +1,7 @@
+import java.util.Scanner;
+
 public class BankManagingSys{
+    private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         final String CLEAR = "\033[H\033[2J";
         final String COLOR_BLUE_BOLD = "\033[34;1m";
@@ -27,9 +30,35 @@ public class BankManagingSys{
             System.out.println("\t" + APP_TITLE + "\n");
 
             switch (screen) {
-                case DASHBOARD: 
+                case DASHBOARD:
+                    System.out.println("\t[1]. Create New Account");
+                    System.out.println("\t[2]. Deposit");
+                    System.out.println("\t[3]. Withdraw");
+                    System.out.println("\t[4]. Transfer");
+                    System.out.println("\t[5]. Check Account Balance");
+                    System.out.println("\t[6]. Delete Account");
+                    System.out.println("\t[7]. Exit");
+
+
+
+
+
+                    System.out.print("\tEnter an option to continue: ");
+                    int option = scanner.nextInt();
+                    scanner.nextLine(); 
+
+                    switch (option){
+                        case 1: screen = CREATE_NEW_ACCOUNT; break;
+                        case 2: screen = DEPOSITE; break;
+                        case 3: screen = WITHDRAW; break;
+                        case 4: screen = TRANSFER; break;
+                        case 5: screen = CHECK_ACCOUNT_BALANCE; break;
+                        case 6: screen = DELETE_ACCOUNT; break;
+                        case 7: System.out.println(CLEAR); System.exit(0);
+                        default: continue;
+                    }
+
                     break;
-            
                 case CREATE_NEW_ACCOUNT:
                     break;
                 case DEPOSITE:
